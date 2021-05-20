@@ -5,7 +5,7 @@
  * 10: 10 rows
  * 11: 11 rows
  */
-#define GRID_ROWS 11
+#define GRID_ROWS 8
 
 /* Grid cols
  * 
@@ -13,7 +13,7 @@
  * ------- 
  * 11: 11 cols
  */
-#define GRID_COLS 11
+#define GRID_COLS 16
 
 /* Postition of first LED  
  *   
@@ -47,5 +47,5 @@
 #define GRID_SINGLE_MINUTES 1
 
 /* Data PIN, where the LED strip is connected to */
-#define DATA_PIN D4
+#define DATA_PIN  D4
 #define FASTLED_INTERNAL

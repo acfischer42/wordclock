@@ -12,7 +12,8 @@ void Time::setup() {
 }
 
 void Time::loop() {
-  Time::ntpClient.update();
+
+Time::ntpClient.update();
 
   int h = Time::ntpClient.getHours();
   int m = Time::ntpClient.getMinutes();
@@ -24,6 +25,7 @@ void Time::loop() {
 
     Time::hour = h;
     Time::minute = m;
+Serial.println("grid::settime");
     Grid::setTime(Time::hour, Time::minute);
 
     if (Config::automatic_timezone) {

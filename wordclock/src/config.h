@@ -18,7 +18,7 @@
  * 11: 11 rows
  */
 #ifndef GRID_ROWS
-  #define GRID_ROWS 11
+  #define GRID_ROWS 8
 #endif
 
 /* Grid cols
@@ -28,7 +28,7 @@
  * 11: 11 cols
  */
 #ifndef GRID_COLS
-  #define GRID_COLS 11
+  #define GRID_COLS 16
 #endif
 
 /* Postition of first LED
@@ -71,7 +71,7 @@
 
 /* Data PIN, where the LED strip is connected to */
 #ifndef DATA_PIN
-  #define DATA_PIN D4
+  #define DATA_PIN  4
 #endif
 
 #ifndef CONSUMPTION_D1_MINI

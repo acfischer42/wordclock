@@ -27,11 +27,13 @@ int Led::getLedId(int id) {
 }
 
 void Led::setup() {
-  FastLED.addLeds<NEOPIXEL, DATA_PIN>(Led::ids, NUM_LEDS);
+  Serial.println("Led::PIN");
+  Serial.println(DATA_PIN);
+  FastLED.addLeds<NEOPIXEL, 4>(Led::ids, NUM_LEDS);
   FastLED.setBrightness(50);
-
+    Serial.println("Led::setup");
   for(int i = 0; i < NUM_LEDS; i++) {
-    Led::ids[i].setRGB(0, 0, 0);
+    Led::ids[i].setRGB(255, 0, 0);
   }
 
   FastLED.show();

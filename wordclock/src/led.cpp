@@ -33,7 +33,7 @@ void Led::setup() {
   FastLED.setBrightness(50);
     Serial.println("Led::setup");
   for(int i = 0; i < NUM_LEDS; i++) {
-    Led::ids[i].setRGB(255, 0, 0);
+    Led::ids[i].setRGB(0, 0, 0);
   }
 
   FastLED.show();

@@ -18,11 +18,12 @@ Time::ntpClient.update();
   int h = Time::ntpClient.getHours();
   int m = Time::ntpClient.getMinutes();
 
+
   if(m != Time::minute) {
     if(m == 0 && h == Time::hour) {
       h = (h + 1) % 24;
     }
-
+    
     Time::hour = h;
     Time::minute = m;
 Serial.println("grid::settime");

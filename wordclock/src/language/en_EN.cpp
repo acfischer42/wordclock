@@ -27,20 +27,32 @@ Serial.println("grid_en_EN::settime");
 
   minute = (minute - (minute % 5));
 
-  if(minute >= 25) {
+  if(minute >= 35) {
 	hour += 1;
+  }
+  Serial.println("en_EN before");
+
+  Serial.println(hour);
+  Serial.println(minute);
+  for(int i = 0; i < NUM_LEDS; i++) {
+  Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+  }
+//need to put logic to show afternoon / evening here
+//int Grid_en_EN::time_day[12][6]
+  for(int i = 0; i < 14; i++) {
+  if(Grid_en_EN::time_day[3][i] >= 0) {
+    Led::ids[Led::getLedId(Grid_en_EN::time_day[3][i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+
+  }
   }
 
   minute = minute / 5;
   hour = hour % 12;
+    Serial.println("en_EN after");
   Serial.println(hour);
   Serial.println(minute);
-  Serial.println(Config::color_fg.r);
-  Serial.println(Config::color_fg.g);
-  Serial.println(Config::color_fg.b);
-  for(int i = 0; i < NUM_LEDS; i++) {
-	Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
-  }
+
+
 
 
 
@@ -49,7 +61,7 @@ Serial.println("grid_en_EN::settime");
 	Led::ids[Led::getLedId(Grid_en_EN::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
   }
 
-  for(int m = 0; m < 12; m++) {
+  for(int m = 0; m < 15; m++) {
 	if(Grid_en_EN::time_minutes[minute][m] >= 0) {
     //Serial.println(Grid_en_EN::time_minutes[minute][m]);
     Led::ids[Led::getLedId(Grid_en_EN::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
@@ -85,32 +97,47 @@ Serial.println("grid_en_EN::settime");
 
 int Grid_en_EN::time_it_is[5] = {0, 1, 3, 4,-1}; // it is
 
-int Grid_en_EN::time_minutes[12][12] = {
-  {107, 108, 109,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // uhr
-  { 17,  18,  19,  20,  32,  33,  34,  35,  -1,  -1,  -1,  -1}, // five past
-  {  6,   7,   8,  32,  33,  34,  35,  -1,  -1,  -1,  -1,  -1}, // ten past
-  { 22,  25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35}, // a quarter past
-  {  9,  10,  11,  12,  13,  14,  15,  32,  33,  34,  35,  -1}, // twenty past
-  {  7,   8,   9,  10,  39,  40,  41,  44,  45,  46,  47,  -1}, // fünf vor halb
-  { 44,  45,  46,  47,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // halb
-  {  7,   8,   9,  10,  35,  36,  37,  38,  44,  45,  46,  47}, // fünf nach halb
-  { 15,  16,  17,  18,  19,  20,  21,  39,  40,  41,  -1,  -1}, // zwanzig vor
-  { 26,  27,  28,  29,  30,  31,  32,  39,  40,  41,  -1,  -1}, // viertel vor
-  { 11,  12,  13,  14,  39,  40,  41,  -1,  -1,  -1,  -1,  -1}, // zehn vor
-  {  7,   8,   9,  10,  39,  40,  41,  -1,  -1,  -1,  -1,  -1}  // fünf vor
+int Grid_en_EN::time_minutes[12][15] = {
+  {107, 108, 109,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1}, // uhr
+  { 16,  17,  18,  19,  32,  33,  34,  35,  -1,  -1,  -1,  -1, -1, -1, -1}, // five past
+  {  6,   7,   8,  32,  33,  34,  35,  -1,  -1,  -1,  -1,  -1, -1, -1, -1}, // ten past
+  { 22,  25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35, -1, -1, -1}, // a quarter past
+  {  9,  10,  11,  12,  13,  14,  32,  33,  34,  35,  -1,  -1, -1, -1, -1}, // twenty past
+  {  9,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  32, 33, 34, 35}, // twenty-five past - needs hour adjust
+  { 21,  22,  23,  24,  32,	 33,	34,  35,  -1,  -1,  -1,  -1, -1, -1, -1}, // half "past" needs hour adjust
+  {  9,	 10,	11,	 12,	13,	 14,  15,  16,	17,	 18,	19,  35, 36, -1, -1}, // twenty-five to
+  {  9,	 10,	11,	 12,	13,	 14,  35,  36,  -1,  -1,  -1,  -1, -1, -1, -1}, // twenty to
+  { 22,  25,	26,	 27,	28,  29,	30,	 31,  35,  36,  -1,  -1, -1, -1, -1}, // a quarter to
+  {  6,	  7,	 8,  35,  36,  -1,  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1}, // ten to
+  { 16,	 17,	18,	 19,  35,  36,  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1}  // five to
 };
 
 int Grid_en_EN::time_hours[12][6] = {
-  { 49,  50,  51,  52,  53,  -1}, // zwölf
-  { 57,  58,  59,  60,  -1,  -1}, // eins
-  { 55,  56,  57,  58,  -1,  -1}, // zwei
-  { 67,  68,  69,  70,  -1,  -1}, // drei
-  { 84,  85,  86,  87,  -1,  -1}, // vier
-  { 73,  74,  75,  76,  -1,  -1}, // fünf
-  {100, 101, 102, 103, 104,  -1}, // sechs
-  { 60,  61,  62,  63,  64,  65}, // sieben
-  { 89,  90,  91,  92,  -1,  -1}, // acht
-  { 80,  81,  82,  83,  -1,  -1}, // neun
-  { 93,  94,  95,  96,  -1,  -1}, // zehn
-  { 77,  78,  79,  -1,  -1,  -1}  // elf
+  {  80,	81,	 82, 	83,	84,	85}, // twelve
+  { 119, 120,	121,  -1, -1, -1}, // one
+  {  38,	39,  40,  -1, -1, -1}, // two
+  {  48,	49,  50,	51,	52, -1}, // three
+  {  64,  65,  66,  67, -1, -1}, // four
+  {  68,	69,	 70,	71, -1, -1}, // five
+  {  58,	59,	 60,  -1, -1, -1}, // six
+  {  72,	73,	 74,	75,	76, 65}, // seven
+  {  42,	43,	 44,	45,	46, -1}, // eight
+  {  76,	77,	 78,	79, -1, -1}, // nine
+  {  61,	62,	 63,  -1, -1, -1}, // ten
+  {  52,	53,	 54,	55,	56,	57}  // eleven
+};
+
+int Grid_en_EN::time_day[12][14] = {
+  {  87, 88,   99, 100,	101, 102,	103,  -1,  -1,  -1,  -1,  -1,  -1,  -1}, // at night
+  {  90, 91, 	 93,	94,	 95, 104,	105, 106,	107, 108,	109, 110,  -1,  -1}, // in the morning
+  {  90, 91, 	 93,	94,	 95, 121,	122, 123,	124, 125, 126, 127,  -1,  -1}, // in the evening
+  {  90, 91, 	 93,	94,	 95, 112,	113, 114,	115, 116,	117, 118,	119, 120}, // in the afternoon
+  {  64,  65,  66,  67,  -1,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // four
+  {  68,	69,	 70,	71,  -1,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // five
+  {  58,	59,	 60,  -1,  -1,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // six
+  {  72,	73,	 74,	75,	 76,  65,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // seven
+  {  42,	43,	 44,	45,	 46,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // eight
+  {  76,	77,	 78,	79,  -1,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // nine
+  {  61,	62,	 63,  -1,  -1,  -1,  -1, -1, -1, -1, -1, -1,  -1,  -1}, // ten
+  {  52,	53,	 54,	55,	 56,	57,  -1, -1, -1, -1, -1, -1,  -1,  -1}  // eleven
 };

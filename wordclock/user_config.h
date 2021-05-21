@@ -35,7 +35,7 @@
  * 3: de_DE_s: "Es ist" only at full and half hour
  * 4: de_DE_s1: "Es ist" only at full and half hour + Minutes in Last row (new front Plate De_de_s1)
  */
-#define GRID_LANGUAGE de_DE
+#define GRID_LANGUAGE en_EN
 
 /* Position of single minute LEDs
  *  

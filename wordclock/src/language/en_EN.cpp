@@ -48,7 +48,7 @@ Serial.println("grid_en_EN::settime");
   if(hour >= 0 && hour <= 11) {
     time_day_ix = 1;
   }
-  if(hour == 12) {
+  if(hour == 12 && minute == 0) {
     time_day_ix = 2;
   }
   if(hour >= 13 && hour <= 18) {
@@ -84,21 +84,29 @@ Serial.println("grid_en_EN::settime");
 	Led::ids[Led::getLedId(Grid_en_EN::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
   }
 
-  for(int m = 0; m < 15; m++) {
-	if(Grid_en_EN::time_minutes[minute][m] >= 0) {
-    //Serial.println(Grid_en_EN::time_minutes[minute][m]);
-    Led::ids[Led::getLedId(Grid_en_EN::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	}
-  }
+// if noon skip hours and Minutes
+  if (time_day_ix != 2) {
+    for(int m = 0; m < 15; m++) {
+	     if(Grid_en_EN::time_minutes[minute][m] >= 0) {
+         //Serial.println(Grid_en_EN::time_minutes[minute][m]);
+         Led::ids[Led::getLedId(Grid_en_EN::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+	      }
+    }
 
-  if(hour == 1 && minute == 0) {
-	hourLimit = 3;
-  }
 
-  for(int h = 0; h < hourLimit; h++) {
-	if(Grid_en_EN::time_hours[hour][h] >= 0) {
-	  Led::ids[Led::getLedId(Grid_en_EN::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	}
+    // if midnight skip Hours
+
+
+    if(hour == 1 && minute == 0) {
+	     hourLimit = 3;
+    }
+
+    for(int h = 0; h < hourLimit; h++) {
+	     if(Grid_en_EN::time_hours[hour][h] >= 0) {
+	        Led::ids[Led::getLedId(Grid_en_EN::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+	      }
+    }
+
   }
 /*
 Serial.println("GRID_SINGLE_MINUTES");

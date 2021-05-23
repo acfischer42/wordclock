@@ -12,21 +12,28 @@ void Time::setup() {
 }
 
 void Time::loop() {
+//Serial.println("Time::loop0");
+//Time::ntpClient.update();
+//Serial.println("Time::loop1");
+  //int h = Time::ntpClient.getHours();
+  //int m = Time::ntpClient.getMinutes();
+  int h = Time::ntpClient.getMinutes();
+  int m = Time::ntpClient.getSeconds();
 
-Time::ntpClient.update();
+//Serial.println("Time::loop2");
+  if (m == 5){
+    Time::ntpClient.begin();
+    Time::ntpClient.update();
 
-  int h = Time::ntpClient.getHours();
-  int m = Time::ntpClient.getMinutes();
-
-
+  }
   if(m != Time::minute) {
     if(m == 0 && h == Time::hour) {
       h = (h + 1) % 24;
     }
-    
+
     Time::hour = h;
     Time::minute = m;
-Serial.println("grid::settime");
+    Serial.println("grid::settime::in time.cpp");
     Grid::setTime(Time::hour, Time::minute);
 
     if (Config::automatic_timezone) {

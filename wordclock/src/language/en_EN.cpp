@@ -48,11 +48,11 @@ Serial.println("grid_en_EN::settime");
   if(hour >= 0 && hour <= 11) {
     time_day_ix = 1;
   }
+  if(hour > 12 && hour < 18) {
+    time_day_ix = 3;
+  }
   if(hour == 12 && minute == 0) {
     time_day_ix = 2;
-  }
-  if(hour >= 13 && hour <= 18) {
-    time_day_ix = 3;
   }
   if(hour >= 19 && hour <= 21) {
     time_day_ix = 4;
@@ -148,13 +148,13 @@ int Grid_en_EN::time_minutes[12][15] = {
 
 int Grid_en_EN::time_hours[12][6] = {
   {  80,	81,	 82, 	83,	84,	85}, // twelve
-  { 119, 120,	121,  -1, -1, -1}, // one
+  {  40,  41,	 42,  -1, -1, -1}, // one
   {  38,	39,  40,  -1, -1, -1}, // two
   {  48,	49,  50,	51,	52, -1}, // three
   {  64,  65,  66,  67, -1, -1}, // four
   {  68,	69,	 70,	71, -1, -1}, // five
   {  58,	59,	 60,  -1, -1, -1}, // six
-  {  72,	73,	 74,	75,	76, 65}, // seven
+  {  72,	73,	 74,	75,	76, -1}, // seven
   {  42,	43,	 44,	45,	46, -1}, // eight
   {  76,	77,	 78,	79, -1, -1}, // nine
   {  61,	62,	 63,  -1, -1, -1}, // ten

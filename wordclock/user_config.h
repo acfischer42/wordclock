@@ -47,5 +47,5 @@
 #define GRID_SINGLE_MINUTES 1
 
 /* Data PIN, where the LED strip is connected to */
-#define DATA_PIN  D4
+//#define DATA_PIN D4
 #define FASTLED_INTERNAL

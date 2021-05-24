@@ -29,9 +29,7 @@ Serial.println("grid_en_EN::settime");
 
   minute = (minute - (minute % 5));
 
-  if(minute >= 35) {
-	hour += 1;
-  }
+
   Serial.println("en_EN before");
 
   Serial.println(hour);
@@ -54,6 +52,9 @@ Serial.println("grid_en_EN::settime");
   if(hour == 12 && minute == 0) {
     time_day_ix = 2;
   }
+  if(hour == 12 && minute > 1 ) {
+    time_day_ix = 3;
+  }
   if(hour >= 19 && hour <= 21) {
     time_day_ix = 4;
   }
@@ -61,6 +62,10 @@ Serial.println("grid_en_EN::settime");
     time_day_ix = 5;
   }
   Serial.println(time_day_ix);
+
+  if(minute >= 35) {
+  hour += 1;
+  }
 
   for(int i = 0; i < 14; i++) {
   if(Grid_en_EN::time_day[time_day_ix][i] >= 0) {

@@ -71,7 +71,7 @@
 
 /* Data PIN, where the LED strip is connected to */
 #ifndef DATA_PIN
-  #define DATA_PIN  4
+  #define DATA_PIN 4
 #endif
 
 #ifndef CONSUMPTION_D1_MINI

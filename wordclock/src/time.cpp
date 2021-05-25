@@ -15,15 +15,15 @@ void Time::loop() {
 //Serial.println("Time::loop0");
 //Time::ntpClient.update();
 //Serial.println("Time::loop1");
-  //int h = Time::ntpClient.getHours();
-  //int m = Time::ntpClient.getMinutes();
-  int h = Time::ntpClient.getMinutes();
-  int m = Time::ntpClient.getSeconds();
+  int h = Time::ntpClient.getHours();
+  int m = Time::ntpClient.getMinutes();
+  //int h = Time::ntpClient.getMinutes();
+  //int m = Time::ntpClient.getSeconds();
 
 //Serial.println("Time::loop2");
-  if (m == 5){
-    Time::ntpClient.begin();
-    Time::ntpClient.update();
+  if (h == 3){
+    //Time::ntpClient.begin();
+    //Time::ntpClient.update();
 
   }
   if(m != Time::minute) {

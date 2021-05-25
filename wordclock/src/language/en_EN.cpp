@@ -61,6 +61,15 @@ Serial.println("grid_en_EN::settime");
   if(hour >= 22) {
     time_day_ix = 5;
   }
+
+  if(hour == 24 ) {
+    time_day_ix = 0;
+  }
+  
+
+
+
+
   Serial.println(time_day_ix);
 
   if(minute >= 35) {
